@@ -3,8 +3,8 @@
  * @description Модераторская шняга
  * @version 0.1
  * @author Shizik
- * @website https://github.com/clitorium/ArukuGenderHighlighter
- * @source https://raw.githubusercontent.com/clitorium/ArukuGirls/main/ArukuGenderHighlighter.plugin.js
+ * @website https://github.com/Je2iK/ModerStaffHighLighter
+ * @source https://raw.githubusercontent.com/Je2iK/ModerStaffHighLighter/main/ModerStaffHighLighter.plugin.js
  */
 
 /*@cc_on
@@ -32,45 +32,17 @@
 @else@*/
 const config = {
     name: "ModerStaffHighlighter",
-    author: "shizik (clitorium&ladno)",
+    author: "shizik",
     version: "0.1",
     description: "Модерская шняга",
-    github: "https://github.com/clitorium/ArukuGenderHighlighter",
+    github: "https://github.com/Je2iK/ModerStaffHighLighter",
     github_raw:
-        "https://raw.githubusercontent.com/clitorium/ArukuGirls/main/ArukuGenderHighlighter.plugin.js",
+        "https://raw.githubusercontent.com/Je2iK/ModerStaffHighLighter/main/ModerStaffHighLighter.plugin.js",
     changelog: [
         {
-            title: "...",
-            type: "fixed",
-            items: [
-                "Ничего нового",
-            ],
         },
     ],
     defaultConfig: [
-        {
-            type: "category",
-            id: "global",
-            name: "Настройки плагина",
-            collapsible: true,
-            shown: true,
-            settings: [
-                {
-                    type: "switch",
-                    id: "mentions",
-                    name: "Упоминания",
-                    note: "Подсвечивать ли девочек в упоминаниях?",
-                    value: true,
-                },
-                {
-                    type: "switch",
-                    id: "saturation",
-                    name: "Использовать сатурацию",
-                    note: "Соблюдать уровень насыщенности, установленный в настройках специальных возможностей Discord?",
-                    value: true,
-                },
-            ],
-        },
     ],
     main: "index.js",
 };
@@ -178,11 +150,7 @@ module.exports = !global.ZeresPluginLibrary
 
               const GuildMemberStore = DiscordModules.GuildMemberStore;
               const SelectedGuildStore = DiscordModules.SelectedGuildStore;
-              const VoiceUser = WebpackModules.getByPrototypes(
-                  "renderName",
-                  "renderAvatar",
-              );
-
+              const ChannelStore = DiscordModules.ChannelStore;
               return class BetterRoleColors extends Plugin {
                   onStart() {
                       Utilities.suppressErrors(
@@ -235,7 +203,6 @@ module.exports = !global.ZeresPluginLibrary
                   }
 
                   colorMentions(element) {
-                      const channel = DiscordModules.SelectedGuildStore.channel;
                       if (!this.settings.global.mentions) return;
                       if (element.matches(".mention")) element = [element];
                       element = element.querySelectorAll(".mention");
